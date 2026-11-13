@@ -1,0 +1,17 @@
+@import "./tokens.css";
+@import "./plate.css";
+
+/* WCAG 2.5.8: controls that sit side by side need a 24 by 24 CSS pixel target each. */
+button,
+select,
+input:not([type="checkbox"], [type="radio"], [type="range"]),
+nav a,
+#app > section > a {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+nav a,
+#app > section > a {
+  display: inline-block;
+}

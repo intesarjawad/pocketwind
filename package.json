@@ -1,0 +1,53 @@
+{
+  "name": "pocketwind",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "pocketwind": "bin/pocketwind.mjs"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.worker.json && tsc --noEmit -p tsconfig.scripts.json && tsc --noEmit -p tsconfig.tests.json",
+    "test": "vitest run",
+    "check": "biome ci . && npm run typecheck && vitest run && node scripts/token-lint.mjs src/app/styles",
+    "test:browser": "playwright test --project=mac-gpu --project=webkit-gpu",
+    "test:browser:ci": "playwright test --project=chromium-cpu",
+    "geometry": "sh scripts/gen-geometry.sh && sh scripts/checksums.sh",
+    "probe": "tsx scripts/probe-adapter.ts",
+    "stability": "tsx scripts/stability.ts",
+    "drag:cpu": "tsx scripts/drag-cpu.ts",
+    "validate": "tsx scripts/validate.ts",
+    "validate:schema": "node scripts/validate-schema.mjs public/validation/results.json",
+    "bench": "tsx scripts/bench.ts",
+    "score": "node scripts/score-results.mjs",
+    "copy-lint": "sh scripts/copy-lint.sh",
+    "cold-start": "tsx scripts/cold-start.ts",
+    "stills": "tsx scripts/plate-stills.ts",
+    "prepack": "VITE_COMMIT=$(sh scripts/source-commit.sh) VITE_NUMERICS_HASH=$(sh scripts/numerics-hash.sh) npm run build && node scripts/check-build-ids.mjs",
+    "prepare": "git config core.hooksPath >/dev/null || simple-git-hooks"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@biomejs/biome": "2.6.6",
+    "@playwright/test": "1.65.0",
+    "@types/node": "26.6.6",
+    "simple-git-hooks": "2.14.0",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.7",
+    "vitest": "5.1.0",
+    "wgpu-matrix": "3.4.2"
+  }
+}

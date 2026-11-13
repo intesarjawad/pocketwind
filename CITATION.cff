@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: If you use Pocketwind, please cite it as below.
+title: "Pocketwind: a local browser wind tunnel with a WebGPU lattice Boltzmann solver"
+type: software
+authors:
+  - family-names: Jawad
+    given-names: Intesar
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/intesarjawad/pocketwind"
+abstract: >-
+  Pocketwind is a local browser wind-tunnel prototype that voxelizes a mesh and runs a
+  WebGPU lattice Boltzmann solver. Drag is validated for a sphere in one laminar-flow case.
+keywords:
+  - wind tunnel
+  - lattice Boltzmann
+  - WebGPU
+  - computational fluid dynamics

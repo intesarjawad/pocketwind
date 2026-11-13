@@ -1,0 +1,1105 @@
+/* The page is a photographic plate and its notes: black velvet, silver smoke, one serif. */
+
+[hidden] {
+  /* biome-ignore lint/complexity/noImportantStyles: the hidden attribute must beat every display rule below. */
+  display: none !important;
+}
+
+html {
+  background: var(--velvet);
+}
+
+body {
+  margin: 0;
+  background: var(--velvet);
+  color: var(--silver);
+  font-family: var(--pwt-serif);
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.2em;
+  transition: var(--fade-quick);
+}
+
+a:hover {
+  text-decoration-color: var(--silver-2);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Masthead, set over the top of the plate. */
+
+.masthead {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: var(--space-4) var(--gutter);
+}
+
+.masthead__mark {
+  justify-self: start;
+  font-style: italic;
+  font-size: var(--size-lead);
+  text-decoration: none;
+}
+
+.masthead nav {
+  display: flex;
+  gap: var(--space-5);
+  color: var(--silver-2);
+}
+
+.masthead nav a {
+  text-decoration: none;
+}
+
+.masthead nav a:hover,
+.masthead nav a[aria-current="page"] {
+  color: var(--silver);
+}
+
+.masthead__expose {
+  justify-self: end;
+  font: inherit;
+  font-style: italic;
+  font-size: var(--size-body);
+  color: var(--silver);
+  background: var(--clear);
+  border: 0;
+  border-bottom: 1px solid var(--silver-3);
+  border-radius: var(--radius-none);
+  padding: var(--space-1) 0;
+  cursor: pointer;
+  min-height: 32px;
+}
+
+.masthead__expose:hover {
+  border-color: var(--silver);
+}
+
+/* The plate. */
+
+.plate {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--velvet);
+  /* The plate's lighter floor ends on a rule rather than a step in tone. */
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+/* Pages without a live run (validation, no WebGPU) have no plate to show. */
+.plate:has(> canvas[hidden]) {
+  display: none;
+}
+
+body:has(.plate > canvas[hidden]) .masthead {
+  position: static;
+  border-bottom: 1px solid var(--rule);
+}
+
+.plate canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.plate--receiving::after {
+  content: "Release to expose this model";
+  position: absolute;
+  inset: var(--space-4);
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--silver-2);
+  color: var(--silver);
+  font-style: italic;
+  font-size: var(--size-chapter);
+  pointer-events: none;
+}
+
+.plate-exposures {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.plate-exposure {
+  animation: var(--develop-in);
+}
+
+:is(.plate-exposure, .plate-exposure--kept) path {
+  fill: none;
+  stroke: var(--silver);
+  stroke-width: 1.4;
+  stroke-dasharray: 1.5 5;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+
+:is(.plate-exposure, .plate-exposure--kept) text {
+  fill: var(--silver);
+  font-family: var(--pwt-serif);
+  font-style: italic;
+  font-size: var(--size-small);
+}
+
+.plate-note path {
+  stroke: var(--silver-2);
+  stroke-width: 1;
+  stroke-dasharray: none;
+}
+
+.plate-note text {
+  fill: var(--silver-2);
+}
+
+.plate-caption {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: var(--space-3) var(--space-5);
+  padding: 0 var(--gutter) var(--space-5);
+}
+
+.plate-number {
+  margin: 0 0 var(--space-2);
+  font-size: var(--size-small);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--silver-2);
+}
+
+.plate-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: var(--size-title);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--track-title);
+}
+
+.plate-conditions {
+  margin: var(--space-3) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  color: var(--silver-2);
+}
+
+.plate-condition--control {
+  color: var(--silver);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.plate-condition--control:hover {
+  border-color: var(--silver-2);
+}
+
+.plate-caption__figure {
+  text-align: right;
+}
+
+.plate-figure {
+  margin: 0;
+  font-size: var(--size-figure);
+  line-height: var(--leading-figure);
+  letter-spacing: var(--track-figure);
+  font-variant-numeric: lining-nums;
+  white-space: nowrap;
+}
+
+.plate-figure__symbol {
+  font-family: var(--pwt-serif);
+  font-style: italic;
+  font-size: var(--size-symbol);
+  letter-spacing: var(--track-none);
+  color: var(--silver-2);
+  vertical-align: top;
+  margin: 0 var(--space-3) 0 0;
+}
+
+.plate-verdict {
+  margin: var(--space-3) 0 0;
+  color: var(--silver-2);
+  text-wrap: pretty;
+}
+
+.plate-condition--lead {
+  color: var(--silver);
+  font-size: var(--size-lead);
+}
+
+.plate-condition__basis {
+  font-size: var(--size-body);
+  color: var(--silver-2);
+}
+
+/* The scale and the reason the figure differs from the measurement, side by side. */
+.plate-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 44ch));
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3) 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.plate-scale {
+  margin: 0;
+  font-size: var(--size-small);
+  color: var(--silver-3);
+}
+
+.plate-hint {
+  margin: var(--space-2) 0 0;
+  font-style: italic;
+  font-size: var(--size-small);
+  color: var(--silver-2);
+}
+
+.plate-figure {
+  position: relative;
+}
+
+.plate-figure__ghost {
+  position: absolute;
+  pointer-events: none;
+}
+
+.plate-reading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: var(--space-5);
+}
+
+.plate-compare {
+  max-width: 17ch;
+  padding: 0 var(--space-5) var(--space-2) 0;
+  border-right: 1px solid var(--rule);
+  text-align: left;
+}
+
+.plate-compare__figure {
+  margin: 0;
+  font-size: var(--size-chapter);
+  line-height: var(--leading-tight);
+}
+
+.plate-compare__label {
+  margin: var(--space-1) 0 0;
+  font-size: var(--size-small);
+  line-height: var(--leading-body);
+  color: var(--silver-2);
+}
+
+.plate-why {
+  margin: 0;
+  font-size: var(--size-small);
+  color: var(--silver-3);
+}
+
+.plate-why__link {
+  white-space: nowrap;
+}
+
+/* The notes under the plate. */
+
+#app {
+  padding: 0 var(--gutter) var(--space-5);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 400;
+}
+
+p {
+  margin: 0 0 var(--space-3);
+}
+
+/* Each note opens on a hairline: its heading and one line on what it holds, then the matter. */
+.chapter {
+  padding: var(--space-6) 0 0;
+}
+
+.chapter__body {
+  min-width: 0;
+}
+
+.chapter__head {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.chapter__head h2 {
+  margin: 0;
+  font-weight: 400;
+  font-style: italic;
+  font-size: var(--size-chapter);
+  line-height: var(--leading-tight);
+}
+
+.chapter__head p {
+  max-width: 60ch;
+  margin: var(--space-2) 0 0;
+  font-size: var(--size-small);
+  color: var(--silver-3);
+}
+
+label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  color: var(--silver-2);
+}
+
+input,
+select,
+button,
+textarea {
+  font: inherit;
+  color: var(--silver);
+}
+
+input:not([type="range"], [type="checkbox"], [type="file"]),
+select {
+  background: var(--clear);
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  border-radius: var(--radius-none);
+  padding: var(--space-1) 0;
+  min-width: 0;
+  min-height: 32px;
+}
+
+input:not([type="range"], [type="checkbox"], [type="file"]):hover,
+select:hover {
+  border-color: var(--silver-2);
+}
+
+/* A native select ignores min-height in WebKit and falls under the 24px target size,
+   so it is drawn here with its own chevron. */
+select {
+  appearance: none;
+  padding: var(--space-1) var(--space-5) var(--space-1) 0;
+  background: var(--chevron) no-repeat right center / 10px 6px;
+}
+
+option {
+  background: var(--velvet);
+}
+
+/* :where keeps the label's specificity off every button, so a classed button can restyle. */
+:where(button, label:has(> input[type="file"])) {
+  font: inherit;
+  color: var(--silver);
+  background: var(--clear);
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  border-radius: var(--radius-none);
+  padding: var(--space-1) 0;
+  cursor: pointer;
+  transition: var(--fade-quick);
+}
+
+:where(button:disabled) {
+  color: var(--silver-3);
+  cursor: not-allowed;
+}
+
+:where(button, label:has(> input[type="file"])):hover {
+  border-color: var(--silver-2);
+}
+
+/* A file picker is its label, drawn as a button; the input covers it to take the click. */
+label:has(> input[type="file"]) {
+  position: relative;
+  font-style: normal;
+  color: var(--silver);
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+label:has(> input[type="file"]:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* A checkbox is drawn as the speed slider's hairline and thumb: thumb left is off, right is on. */
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 32px;
+  height: 24px;
+  margin: 0;
+  background: linear-gradient(var(--silver-3), var(--silver-3)) no-repeat center / 100% 1px;
+  cursor: pointer;
+  align-self: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--silver-2);
+  border-radius: var(--radius-thumb);
+  background: var(--velvet);
+  transition: var(--fade-quick);
+}
+
+input[type="checkbox"]:checked::before {
+  left: 18px;
+  border-color: var(--silver);
+  background: var(--silver);
+}
+
+input[type="checkbox"]:hover::before {
+  border-color: var(--silver);
+}
+
+input[type="range"] {
+  appearance: none;
+  background: var(--clear);
+  width: min(320px, 100%);
+  height: 24px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  background: var(--silver-2);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 1px;
+  background: var(--silver-2);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: var(--radius-thumb);
+  background: var(--silver);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: var(--radius-thumb);
+  background: var(--silver);
+}
+
+output {
+  color: var(--silver);
+}
+
+/* The experiment: model, preset and conditions. */
+
+.panel > section {
+  margin: var(--space-4) 0 0;
+}
+
+.panel form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-5);
+  align-items: start;
+}
+
+.panel form > section,
+.panel form > details {
+  margin: 0;
+}
+
+/* The drop target is a line of the caption, not a box; it lights while a file is over it. */
+.dropzone {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+  font-style: italic;
+  color: var(--silver-2);
+  transition: var(--fade-quick);
+}
+
+.dropzone.dropzone-over {
+  color: var(--silver);
+}
+
+.dropzone p {
+  margin: 0;
+}
+
+.dropzone [data-model-summary] {
+  flex-basis: 100%;
+}
+
+/* The body and its conditions down the left, the run's options down the right. */
+@media (min-width: 701px) {
+  .panel form {
+    grid-auto-flow: row dense;
+  }
+
+  .panel form > :is(div, section:has(#size), section:has(#speed)) {
+    grid-column: 1;
+  }
+
+  .panel form > :is(section:has([name="compare"]), details:not([open]), button[type="submit"]) {
+    grid-column: 2;
+  }
+}
+
+/* Advanced sits beside the comparison it qualifies, and opens across the form. */
+.panel form > details[open] {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3) var(--space-5);
+}
+
+.panel summary {
+  grid-column: 1 / -1;
+  justify-self: start;
+  list-style: none;
+  cursor: pointer;
+  color: var(--silver-2);
+  font-style: italic;
+  border-bottom: 1px solid var(--rule-strong);
+  padding: var(--space-1) 0;
+}
+
+.panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.panel summary::after {
+  content: " +";
+}
+
+.panel details[open] summary::after {
+  content: " \2212";
+}
+
+.panel form > button[type="submit"] {
+  justify-self: start;
+}
+
+/* Choosing a model is what the page is for, so it is the one solid action. */
+.dropzone > p > button {
+  padding: var(--space-2) var(--space-5);
+  font-style: normal;
+  color: var(--velvet);
+  background: var(--silver);
+  border: 1px solid var(--silver);
+}
+
+.dropzone > p > button:hover {
+  background: var(--silver-2);
+  border-color: var(--silver-2);
+}
+
+.panel form > section:has(#speed) {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.panel form > section:has(#speed) label {
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+#speed {
+  width: min(320px, 40vw);
+}
+
+/* The record: drag history, table and comparison. */
+
+.force-report figure {
+  margin: 0;
+}
+
+.force-report figcaption,
+caption {
+  text-align: left;
+  font-style: italic;
+  color: var(--silver-2);
+  padding: 0 0 var(--space-2);
+}
+
+.force-report figcaption {
+  padding: var(--space-2) 0 0;
+  font-size: var(--size-small);
+}
+
+.force-report canvas {
+  color: var(--silver-2);
+  --pwt-body: #e9e5dc;
+  --pwt-line: #4a4843;
+  --pwt-smoke: #ffffff1a;
+  border-bottom: 1px solid var(--rule);
+}
+
+.readout {
+  margin: var(--space-3) 0 0;
+  color: var(--silver-2);
+}
+
+table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  margin: var(--space-3) 0;
+}
+
+th,
+td {
+  text-align: left;
+  padding: var(--space-1) var(--space-4) var(--space-1) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+th {
+  font-weight: 400;
+  color: var(--silver-2);
+}
+
+[role="alert"] {
+  color: var(--silver);
+  border-left: 2px solid var(--silver);
+  padding: 0 0 0 var(--space-3);
+}
+
+#run-status {
+  font-style: italic;
+}
+
+section[aria-label="Share"],
+section[aria-label="Run file"],
+section[aria-label="Compare"],
+section[aria-label="Embed"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+  margin: 0 0 var(--space-4);
+}
+
+/* The link itself is shown only when it must be copied by hand. */
+section[aria-label="Share"] input:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+section[aria-label="Share"] input:focus {
+  flex: 1 1 100%;
+  color: var(--silver-3);
+}
+
+section[aria-label="Compare"] > :is(div, p) {
+  flex-basis: 100%;
+}
+
+#app > footer {
+  max-width: 64ch;
+  padding: var(--space-7) 0 0;
+  font-style: italic;
+  color: var(--silver-3);
+}
+
+/* The validation and performance pages, and the unsupported notice. */
+
+#app > :is(section, article):not(.chapter) {
+  max-width: 980px;
+  padding: var(--space-6) 0 0;
+}
+
+#app h1 {
+  font-size: var(--size-title);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--track-title);
+  margin: 0 0 var(--space-4);
+}
+
+#app h2 {
+  font-size: var(--size-chapter);
+  line-height: var(--leading-tight);
+}
+
+#app > section:not(.chapter),
+#app .validate-sections > section {
+  margin: var(--space-5) 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The validation page as a plate: the figure beside its notes, then the record in two columns. */
+.validate-plate,
+.validate-sections {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 0 var(--space-6);
+  max-width: 1240px;
+}
+
+/* Two balanced columns, so a short section leaves no hole beside a long one. */
+.validate-sections {
+  display: block;
+  columns: 2;
+  column-gap: var(--space-6);
+}
+
+/* Spacing sits under each section, so both columns start level with each other. */
+#app .validate-sections > section {
+  break-inside: avoid;
+  margin: 0 0 var(--space-5);
+}
+
+.validate-sections {
+  margin: var(--space-5) 0 0;
+}
+
+:is(.validate-sections, .validate-notes) :is(th, td):last-child {
+  padding-right: 0;
+}
+
+/* Every rule on the page runs the width of its column. */
+:is(.validate-sections, .validate-notes) table {
+  width: 100%;
+}
+
+.figure-cell {
+  text-align: right;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.pending-list {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pending-list li {
+  position: relative;
+  padding: 0 0 0 var(--space-4);
+}
+
+.pending-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.8em;
+  left: 0;
+  width: 10px;
+  height: 1px;
+  background: var(--silver-3);
+}
+
+.validate-notes {
+  padding: var(--space-5) 0 0;
+  color: var(--silver-2);
+}
+
+#app .validate-notes h2 {
+  color: var(--silver);
+}
+
+#app .validate-notes section {
+  margin: var(--space-4) 0 0;
+}
+
+/* The validation figure, set like a plate: dark ground, drawn marks, caption beneath. */
+.validate-figure {
+  min-width: 0;
+  max-width: 980px;
+  margin: var(--space-5) 0 0;
+}
+
+.validate-chart-scroll {
+  overflow-x: auto;
+}
+
+.validate-figure svg {
+  display: block;
+  width: 100%;
+  min-width: 480px;
+  height: auto;
+  padding: var(--space-4) var(--space-3);
+  background: var(--floor);
+  border: 1px solid var(--rule);
+}
+
+.validate-figure text {
+  fill: var(--silver-2);
+}
+
+.validate-figure .figure-symbol {
+  font-style: italic;
+}
+
+.validate-figure .figure-quiet {
+  fill: var(--silver-3);
+}
+
+.figure-band {
+  fill: var(--rule);
+}
+
+.figure-reference {
+  stroke: var(--silver-2);
+  stroke-dasharray: 2 4;
+}
+
+.figure-axis,
+.figure-stem {
+  stroke: var(--rule-strong);
+}
+
+.figure-mark {
+  fill: var(--silver);
+}
+
+.validate-figure figcaption {
+  max-width: 72ch;
+  margin: var(--space-3) 0 0;
+  font-style: italic;
+  font-size: var(--size-small);
+  line-height: var(--leading-body);
+  color: var(--silver-2);
+}
+
+#unsupported img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 var(--space-5);
+}
+
+@media (max-width: 700px) {
+  .masthead {
+    grid-template-columns: 1fr auto;
+  }
+
+  /* A phone keeps the way to the validation page; a model is chosen under the plate. */
+  .masthead nav a:not([href="#/validate"]),
+  .masthead__expose {
+    display: none;
+  }
+
+  .plate {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  /* The caption runs on below the picture, so the picture keeps the screen's height. */
+  .plate canvas {
+    height: 100svh;
+  }
+
+  .plate-caption {
+    position: relative;
+    margin-top: 53svh;
+    grid-template-columns: 1fr;
+    padding: var(--space-4) var(--gutter) var(--space-5);
+  }
+
+  /* The caption starts at 53svh; its heading is set above the picture, under the masthead. */
+  .plate-heading {
+    position: absolute;
+    top: calc(76px - 53svh);
+    inset-inline: var(--gutter);
+    background: var(--velvet);
+  }
+
+  .plate-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .plate-caption__figure {
+    order: -1;
+    text-align: left;
+  }
+
+  /* The figure leads, and its reference sits under it as one line of the same unit. */
+  .plate-reading {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .plate-compare {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    max-width: none;
+    padding: var(--space-2) 0 0;
+    border-right: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .plate-compare__label {
+    margin: 0;
+  }
+
+  .panel form,
+  .panel details[open],
+  .validate-plate {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .validate-sections {
+    columns: 1;
+  }
+}
+
+/* A short desktop window has no room under the picture for the long note; the
+   validation page carries it. */
+@media (min-width: 701px) and (max-height: 700px) {
+  .plate-why {
+    display: none;
+  }
+
+  .plate-notes {
+    grid-template-columns: minmax(0, 88ch);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    --develop-in: develop 900ms var(--ease-develop) both;
+  }
+}
+
+@keyframes develop {
+  from {
+    opacity: 0;
+  }
+}
+
+body:has(.plate > canvas[hidden]) #app {
+  padding-top: var(--space-5);
+}
+
+/* The keep controls read as one row of actions. */
+#keep .chapter__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+#keep .chapter__body > section {
+  margin: 0;
+}
+
+/* An empty status line stays in the page for screen readers but takes no gap in the row. */
+#keep [role="status"]:empty {
+  position: absolute;
+}
+
+/* Frame view keeps the picture and its readout inside the advertised iframe. */
+body:has(.embed-view) .masthead {
+  display: none;
+}
+body:has(.embed-view) .plate {
+  height: 62svh;
+  min-height: 0;
+}
+body:has(.embed-view) .plate canvas {
+  height: 100%;
+}
+body:has(.embed-view) #app {
+  padding: var(--space-2) var(--gutter);
+}
+body:has(.embed-view) #app > .embed-view {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.embed-view .readout {
+  margin: 0;
+  font-size: var(--size-small);
+  line-height: var(--leading-body);
+}
+.embed-view a {
+  font-size: var(--size-small);
+}
+.plate-fit {
+  display: none;
+}
+.plate-title,
+.dropzone [data-model-summary] {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+#unsupported img {
+  margin: var(--space-5) 0 0;
+}
+#app pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+@media (max-width: 700px) {
+  .plate-fit {
+    display: inline-block;
+    margin-top: var(--space-3);
+  }
+  .panel form > details[open] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .panel select {
+    max-width: 100%;
+    width: 100%;
+  }
+}

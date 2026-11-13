@@ -1,0 +1,9 @@
+{
+  "solver": "example-solver 1.0 (hand-written fixture)",
+  "rows": [
+    { "case": "ahmed-25", "tier": "L", "cd": 0.3, "relStdPct": 1.2, "steps": 4000 },
+    { "case": "sphere-re-100", "cells": 2097152, "cd": 1.0, "relStdPct": 0.4, "steps": 6000 },
+    { "case": "cube", "tier": "M", "cd": 1.05, "relStdPct": 3.5, "steps": 2500 },
+    { "case": "cylinder-re-100", "tier": "M", "cd": 1.4, "relStdPct": 0.9, "steps": 2500 }
+  ]
+}

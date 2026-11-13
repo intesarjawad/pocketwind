@@ -1,0 +1,21 @@
+name: Bug report
+description: Report behavior that does not match the tunnel's intended use.
+title: "Bug: "
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: What happened?
+      description: Include the steps to reproduce it and what you expected.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser, operating system, and GPU
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Relevant screenshots or console messages

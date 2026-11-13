@@ -1,0 +1,18 @@
+name: Validation case request
+description: Suggest a published case for checking the solver.
+title: "Validation: "
+body:
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference and measurements
+      description: Link the publication and identify the measurements to compare.
+    validations:
+      required: true
+  - type: textarea
+    id: setup
+    attributes:
+      label: Geometry and flow conditions
+      description: Include dimensions, boundary conditions, and Reynolds number if known.
+    validations:
+      required: true

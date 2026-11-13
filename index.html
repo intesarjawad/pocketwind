@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pocketwind</title>
+    <meta
+      name="description"
+      content="Drop a 3D model into a wind tunnel in your browser. Watch the smoke bend around it."
+    />
+    <meta name="theme-color" content="#050505" />
+    <meta property="og:title" content="pocketwind" />
+    <meta
+      property="og:description"
+      content="Drop a 3D model into a wind tunnel in your browser. Watch the smoke bend around it."
+    />
+    <meta property="og:image" content="https://pocketwind.intesarjawad.com/plate/social.png" />
+    <meta property="og:image:width" content="1185" />
+    <meta property="og:image:height" content="631" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="masthead__mark" href="#/">pocketwind</a>
+      <nav aria-label="Pages">
+        <a href="#/">Plate</a>
+        <a href="#/validate">How accurate is this?</a>
+        <a href="https://github.com/intesarjawad/pocketwind">Source</a>
+      </nav>
+      <button class="masthead__expose" type="button" hidden>Expose your model</button>
+    </header>
+    <div class="plate" id="plate">
+      <canvas id="tunnel" role="img" aria-label="Wind tunnel view"></canvas>
+    </div>
+    <main id="app" aria-label="Pocket Wind Tunnel"></main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

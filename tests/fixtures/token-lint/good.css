@@ -1,0 +1,19 @@
+@media (prefers-reduced-motion: reduce) {
+  .readout {
+    color: var(--text);
+    background: none;
+    border-color: currentColor;
+    font-family: var(--font-body);
+    font-size: var(--text-readout);
+    line-height: inherit;
+    letter-spacing: 0;
+    margin: 0 auto;
+    padding: var(--space-panel);
+    gap: var(--space-controls);
+    border-radius: 0;
+    box-shadow: none;
+    transition: none;
+    animation: none;
+    width: 100%;
+  }
+}

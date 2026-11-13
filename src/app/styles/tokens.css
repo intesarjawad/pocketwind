@@ -1,0 +1,70 @@
+/* Redaction by Jeremy Mickel (MCKL), SIL Open Font License 1.1; see fonts/OFL.md. */
+@font-face {
+  font-family: "Redaction";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/redaction-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Redaction";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./fonts/redaction-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Redaction 10";
+  font-display: swap;
+  src: url("./fonts/redaction-10-latin-400-normal.woff2") format("woff2");
+}
+
+:root {
+  color-scheme: dark;
+  /* Render tokens: the plate shader and the force plot read these. */
+  --pwt-ground: #050505;
+  --pwt-smoke: #ece8de;
+  --pwt-body: #2c2a27;
+  --pwt-line: #6d6a64;
+
+  --velvet: #050505;
+  --floor: #0b0b0a;
+  --silver: #e9e5dc;
+  --silver-2: #a9a59c;
+  --silver-3: #8a867e;
+  --rule: #2a2927;
+  --rule-strong: #4a4843;
+  --focus: #ffffff;
+  --clear: transparent;
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23a9a59c' stroke-width='1.2'/%3E%3C/svg%3E");
+
+  --pwt-serif: "Redaction", "Iowan Old Style", Georgia, serif;
+  --size-small: 13px;
+  --size-body: 16px;
+  --size-lead: 19px;
+  --size-chapter: clamp(26px, 2.6vw, 36px);
+  --size-title: clamp(30px, 3.1vw, 46px);
+  --size-figure: clamp(88px, 8vw, 128px);
+  --size-symbol: clamp(28px, 2.8vw, 40px);
+  --leading-tight: 1.02;
+  --leading-body: 1.5;
+  --leading-figure: 0.78;
+  --track-caps: 0.14em;
+  --track-title: -0.01em;
+  --track-figure: -0.035em;
+  --track-none: 0;
+
+  --gutter: clamp(16px, 3.3vw, 48px);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 14px;
+  --space-4: 22px;
+  --space-5: 32px;
+  --space-6: 56px;
+  --space-7: 96px;
+  --radius-none: 0;
+  --radius-thumb: 50%;
+
+  --ease-develop: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --fade-quick: color 160ms var(--ease-develop), border-color 160ms var(--ease-develop);
+}

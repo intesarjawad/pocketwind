@@ -1,0 +1,15 @@
+name: Browser or GPU support report
+description: Share a browser or adapter result.
+title: "GPU: "
+body:
+  - type: textarea
+    id: report
+    attributes:
+      label: Benchmark report or browser and GPU details
+      description: Paste the copied benchmark JSON, or describe the browser, OS, GPU, and observed behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Steps and additional context
